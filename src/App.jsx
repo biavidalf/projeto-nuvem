@@ -1,9 +1,10 @@
 import './App.css'
+import AlunoView from './pages/AlunoView';
 
 export default function App() {
   return (
-    <main>
-      React ⚛️ + Vite ⚡ + Replit 🌀
-    </main>
+    <div>
+      <AlunoView />
+    </div>
   )
 }
