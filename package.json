@@ -25,6 +25,11 @@
     "vite": "^3.1.4"
   },
   "dependencies": {
+    "chart.js": "^3.9.1",
+    "faker": "5.5.3",
+    "primeicons": "^6.0.1",
+    "primereact": "^8.7.2",
+    "react-chartjs-2": "^4.0.0",
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.3"
   }

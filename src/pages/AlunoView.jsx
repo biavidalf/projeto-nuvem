@@ -2,6 +2,7 @@ import NavBar from '../components/Navbar';
 import Title from '../components/Title';
 import Prova from '../components/Prova';
 import Nota from '../components/Nota';
+import {DoughnutChart} from '../components/DoughnutChartDemo';
 
 function ShortcutButton({ text }) {
   return (
@@ -81,7 +82,7 @@ export default function AlunoView() {
           </div>
         </div>
 
-        
+
         <div className="w-full">
           <Title text="Minhas Notas" color="white" />
           <div className="w-full flex flex-wrap justify-between gap-y-6">
@@ -89,6 +90,11 @@ export default function AlunoView() {
             <Nota />
           </div>
         </div>
+
+        <div className="w-1/4 bg-white rounded py-4 px-2">
+          <DoughnutChart />
+        </div>
+        
       </main>
     </div>
   )
