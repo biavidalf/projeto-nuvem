@@ -2,7 +2,7 @@ import { FaUserCircle } from "react-icons/fa";
 
 export default function Navbar(){
   return (
-    <div className="w-full h-24 flex justify-between items-center px-20 text-blue">
+    <div className="w-full h-24 flex justify-between items-center px-20 text-white">
       <h2 className="text-2xl font-semibold">Power Grade</h2>
       <div className="text-xl font-semibold flex items-center gap-4">
         {/* Matricula e nome do aluno */}
