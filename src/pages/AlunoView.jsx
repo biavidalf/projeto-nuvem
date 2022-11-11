@@ -1,10 +1,11 @@
 import NavBar from '../components/Navbar';
 import Title from '../components/Title';
 import Prova from '../components/Prova';
+import Nota from '../components/Nota';
 
 function ShortcutButton({ text }) {
   return (
-    <button className="my-4 py-4 w-44 bg-white rounded text-blue font-medium text-xl">{text}</button>
+    <button className="my-4 py-4 w-44 bg-white rounded text-blue font-medium text-xl drop-shadow-xl">{text}</button>
   )
 }
 
@@ -23,7 +24,7 @@ export default function AlunoView() {
         <NavBar />
       </nav>
 
-      <main className="flex flex-col items-start justify-start gap-6 h-screen max-w-screen-lx mx-auto px-8">
+      <main className="flex flex-col items-start justify-start gap-8 min-h-screen max-w-screen-lx mx-auto px-8">
         <div className="w-full">
           <Title text="Minhas Médias" color="white" />
           <div className="flex">
@@ -77,6 +78,15 @@ export default function AlunoView() {
             <Prova text="Avaliacao 2" discipline="IHC" date="29/10" />
             <Prova text="Trabalho 1" discipline="RMS" date="05/10" />
             <Prova text="Atividade 2" discipline="ADS" date="10/10" />
+          </div>
+        </div>
+
+        
+        <div className="w-full">
+          <Title text="Minhas Notas" color="white" />
+          <div className="w-full flex flex-wrap justify-between gap-y-6">
+            <Nota />
+            <Nota />
           </div>
         </div>
       </main>
