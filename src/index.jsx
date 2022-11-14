@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import Login from './pages/Login';
 import ProfView from './pages/ProfView';
+import Turma from './pages/Turma';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -12,7 +14,7 @@ import {
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/aluno",
     element: <App />,
   },
   {
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/professor",
     element: <ProfView />,
+  },
+  {
+    path: "/turma",
+    element: <Turma />,
   }
 ]);
 

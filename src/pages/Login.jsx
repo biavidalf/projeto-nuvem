@@ -1,3 +1,5 @@
+import Navigate from "../components/Navigate";
+
 function Input({label}){
   return (
     <div className="w-full px-10">
@@ -24,7 +26,7 @@ export default function Login() {
 
             <p className="text-blue mt-2 self-end pr-10">Esqueci minha senha</p>
             
-            <button className="my-4 py-2 px-12 bg-yellow rounded text-white font-medium text-xl">Logar</button>
+            <Navigate text="Logar" path="/aluno" type="1" />
           </form>  
         </main>
       </div>

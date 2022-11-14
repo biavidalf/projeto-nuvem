@@ -1,7 +1,8 @@
 import NavBar from '../components/Navbar';
 import Title from '../components/Title';
-import Button from '../components/Button';
 import {DoughnutChart} from '../components/DoughnutChartDemo';
+import Navigate from '../components/Navigate';
+
 
 function ProvaAberta(){
    return (
@@ -17,7 +18,8 @@ function ProvaAberta(){
             <div className="font-medium">Avaliação 3</div>
             <div className="text-sm">22 alunos entregaram</div>
             <div className="text-sm">8 alunos pendentes</div>
-            <button className="bg-blue px-8 py-2 text-white text-lg rounded mt-4 drop-shadow-xl">Ver entregas</button>
+            {/*<button className="bg-blue px-8 py-2 text-white text-lg rounded mt-4 drop-shadow-xl">Ver entregas</button>*/}
+            <Navigate text="Ver entregas" path="/turmas" type="2" weight='font-normal' />
           </div>
        </div>
       </div>
@@ -30,7 +32,7 @@ function Turma(){
     <div className="font-bold text-lg text-center">Interação Humano Computador</div>
       <div className="text-md font-medium">T163-88</div>
       <div className="text-md font-medium">30 Alunos</div>
-      <Button text="Ir" /> 
+      <Navigate text="Ir" path="/turma" type="2" />
     </div>
   )
 }

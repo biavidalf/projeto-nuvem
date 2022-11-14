@@ -90,10 +90,6 @@ export default function AlunoView() {
             <Nota />
           </div>
         </div>
-
-        <div className="w-1/4 bg-white rounded py-4 px-2">
-          <DoughnutChart />
-        </div>
         
       </main>
     </div>
