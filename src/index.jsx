@@ -4,16 +4,19 @@ import App from './App'
 import Login from './pages/Login';
 import ProfView from './pages/ProfView';
 import Turma from './pages/Turma';
-
+ 
 import {
   createBrowserRouter,
   RouterProvider,
   Route,
   Link,
 } from "react-router-dom"
-
+ 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <Login />,
+  },{
     path: "/aluno",
     element: <App />,
   },
@@ -30,7 +33,7 @@ const router = createBrowserRouter([
     element: <Turma />,
   }
 ]);
-
+ 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from './Button';
-
-export default function Navigate({ text, path, type, weight }) {
+ 
+export default function Navigate({ text, path, type, weight, classDefinition }) {
   let navigate = useNavigate();
   const routeChange = () => {
     navigate(path);
@@ -12,6 +12,8 @@ export default function Navigate({ text, path, type, weight }) {
     )
   }else if(type == '2'){
     return (<Button click={routeChange} text={text} weight={weight ? weight : ''} />)
+  }else if(type == '3'){
+    return (<button className={classDefinition} onClick={routeChange}>{text}</button>)
   }
-  
+ 
 }
