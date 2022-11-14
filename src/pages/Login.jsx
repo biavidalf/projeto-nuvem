@@ -1,13 +1,5 @@
 import Navigate from "../components/Navigate";
-
-function Input({label}){
-  return (
-    <div className="w-full px-10">
-      <label className="block py-2 text-medium text-blue font-medium">{label}</label>
-      <input type="text" className="drop-shadow-md w-full bg-[#FCF9F9] py-2 px-4 outline-none border" />
-    </div>
-  )
-}
+import Input from "../components/Input";
 
 export default function Login() {
   return (

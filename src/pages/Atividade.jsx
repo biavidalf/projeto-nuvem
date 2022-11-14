@@ -1,9 +1,7 @@
 import NavBar from '../components/Navbar';
-import Title from '../components/Title';
 import Navigate from '../components/Navigate';
 import Navigation from '../components/Navigation';
-import ShortcutButton from '../components/ShortcutButton';
-import {DoughnutChart} from '../components/DoughnutChartDemo';
+import Input from '../components/Input';
  
 function AtividadeContainer({ open = true }){
   return (
@@ -24,7 +22,7 @@ function AtividadeContainer({ open = true }){
   )
 }
  
-export default function ProfView() {
+export default function Atividade() {
   return (
     <div className="w-full bg-blue min-h-100vh pb-14">
       <nav>
@@ -33,18 +31,33 @@ export default function ProfView() {
  
       <main className="flex flex-col items-start justify-start gap-8 min-h-screen max-w-screen-lx mx-auto px-8">
         <div className='w-full'>
-          <Navigation type="1" />
-         
-          <div className='w-full flex items-center justify-center gap-12 mb-[-20px] mt-2'>
-            <Navigate text="Criar Atividade" type="3" classDefinition="my-4 py-4 w-60 bg-white rounded text-blue font-medium text-xl drop-shadow-xl" path="/turma/add-atvd"/>
-            <ShortcutButton text="Ver Alunos" width="60"/>
-          </div>
-         
-          <Title text="Atividades" color="white"/>
-          <div className='w-full flex items-center justify-between'>
-            <AtividadeContainer />
-            <AtividadeContainer />
-            <AtividadeContainer open={false} />
+          <Navigation type="2"/>
+        </div>
+
+        <div className='w-full flex flex-col items-center justify-start text-white text-lg'>
+
+          <div className="w-2/3 p-4">
+            <form className="w-full bg-white flex flex-col items-center justify-start rounded py-6 m-auto gap-y-2">
+              <h2 className="text-blue bold text-2xl font-semibold">Nova Atividade</h2>  
+              
+              <div className="w-full flex items-start justify-between flex-wrap">
+                <div className="w-1/2">
+                  <Input label="Nome"/>
+                  <Input label="Prazo"/>
+                </div>
+
+                <div className="w-1/2">
+                  <Input label="Etapa (AV1/2/3)"/>
+                  <Input label="Nota Máxima"/>
+                </div>
+
+                <div className="w-full">
+                  <Input label="Descricao" type="textarea"/>
+                </div>
+              </div>
+              
+              <Navigate text="Criar" path="/aluno" type="1" />
+            </form>  
           </div>
         </div>
       </main>
