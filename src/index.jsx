@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import ProfView from './pages/ProfView';
 import Turma from './pages/Turma';
 import Atividade from './pages/Atividade';
+import Admin from './pages/Admin';
  
 import {
   createBrowserRouter,
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/turma/add-atvd",
     element: <Atividade />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
   }
 ]);
  
