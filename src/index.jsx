@@ -6,6 +6,7 @@ import ProfView from './pages/ProfView';
 import Turma from './pages/Turma';
 import Atividade from './pages/Atividade';
 import Admin from './pages/Admin';
+import Teste from './pages/Teste';
  
 import {
   createBrowserRouter,
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/teste",
+    element: <Teste databaseTable="aluno" />,
   }
 ]);
  

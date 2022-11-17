@@ -1,5 +1,7 @@
-import { FaUserCircle } from "react-icons/fa";
+import axios from 'axios';
+import { useEffect } from 'react'
 import { useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
 import Table from "../components/Table";
 import Input from "../components/Input";
 
@@ -23,40 +25,117 @@ function AdminNavbar(){
 
 function AlunoPage(){
     const [isCadastrarClicked, setIsCadastrarClicked] = useState(false);
+
+    const [alunos, setAlunos] = useState([]);
+
+    const url = 'http://localhost:3000/aluno';
+    
+    useEffect(() => {
+        getAlunos();
+    }, []);
+    
+    const getAlunos = () => {
+        axios.get(url)
+        .then((response) => {
+            const allAlunos = response.data;
+            setAlunos(allAlunos);
+            console.log(alunos);
+        })
+        .catch(error => console.error(`Error: ${error}`));
+    }
+
+    const [matricula, setMatricula] = useState('');
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [curso, setCurso] = useState('');
+    const [senha, setSenha] = useState('');
+
+    const changeMatricula = (e) => {
+        setMatricula(e.target.value);
+    }
+    const changeNome = (e) => {
+        setNome(e.target.value);
+    }
+    const changeEmail = (e) => {
+        setEmail(e.target.value);
+    }
+    const changeTelefone = (e) => {
+        setTelefone(e.target.value);
+    }
+    const changeCurso = (e) => {
+        setCurso(e.target.value);
+    }
+    const changeSenha = (e) => {
+        setSenha(e.target.value);
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const aluno = {
+            matricula: parseInt(matricula),
+            nome,
+            email,
+            telefone,
+            curso,
+            senha,
+            semestre: 1,
+            turmas: []
+        }
+        
+        axios.post(url, aluno)
+            .then(response => {
+                console.log(response.data);
+                getAlunos();
+            })
+        
+        setIsCadastrarClicked(false);
+        setMatricula('');
+        setNome('');
+        setEmail('');
+        setTelefone('');
+        setCurso('');
+        setSenha('');
+    }
     
     const renderPage = () => {
         if(isCadastrarClicked) {
             return (
-                <form action="" className="w-3/4 bg-white rounded py-6 px-12 mt-3 flex flex-col items-center m-auto gap-y-2">
+                <form onSubmit={onSubmit} className="w-3/4 bg-white rounded py-6 px-12 mt-3 flex flex-col items-center m-auto gap-y-2">
                     <h2 className="text-blue font-semibold text-xl">Cadastrar Aluno</h2>
 
                     <div className="flex items-center justify-between w-full">
                         <div className="flex flex-col items-center justify-between w-32">
                             <label className="text-slate-700 text-left w-full">Matrícula</label>
-                            <input type="text" className="px-4 py-2 border border-1 border-slate-300 w-full" />
+                            <input type="number" onChange={changeMatricula} value={matricula} className="px-4 py-2 border border-1 border-slate-300 w-full" required />
                         </div>
                         
                         <div className="flex flex-col items-center justify-between w-80">
                             <label className="text-slate-700 text-left  w-full ">Nome</label>
-                            <input type="text" className="px-4 py-2 border border-1 border-slate-300 w-full" />
+                            <input type="text" onChange={changeNome} value={nome} className="px-4 py-2 border border-1 border-slate-300 w-full" required />
                         </div>
                     </div>
 
                     <div className="flex items-center justify-between w-full">
                         <div className="flex flex-col items-start justify-between w-[49%]">
                             <label className="text-slate-700 text-left  w-full">E-mail</label>
-                            <input type="email" className="px-4 py-2 border border-1 border-slate-300 w-full" />
+                            <input type="email" onChange={changeEmail} value={email} className="px-4 py-2 border border-1 border-slate-300 w-full" required />
                         </div>
                         
                         <div className="flex flex-col items-start justify-between w-[49%]">
-                            <label className="text-slate-700 text-left  w-full">Telefone</label>
-                            <input type="text" className="px-4 py-2 border border-1 border-slate-300 w-full" />
+                            <label className="text-slate-700 text-left  w-full">Senha</label>
+                            <input type="password" onChange={changeSenha} value={senha} className="px-4 py-2 border border-1 border-slate-300 w-full" required />
                         </div>
                     </div>
                     <div className="flex items-center justify-between w-full">
-                        <div className="flex flex-col items-start justify-between w-full">
-                            <label className="text-slate-700 text-left  w-full">Curso</label>
-                            <select className="px-4 py-2 border border-1 border-slate-300 w-full">
+                        <div className="flex flex-col items-start justify-between w-[49%]">
+                            <label className="text-slate-700 text-left  w-full">Telefone</label>
+                            <input type="text" onChange={changeTelefone} value={telefone} className="px-4 py-2 border border-1 border-slate-300 w-full" required />
+                        </div>
+                        
+                        <div className="flex flex-col items-start justify-between w-[49%]">
+                            <label className="text-slate-700 text-left w-full">Curso</label>
+                            <select  onChange={changeCurso} value={curso} className="px-4 py-2 border border-1 border-slate-300 w-full" required>
                                 <option value="">-- ESCOLHA --</option>
                                 <option value="cienciaComputacao">Ciência da Computação</option>
                                 <option value="analiseDesenvolvimentoSistemas">Análise e Desenvolvimento de Sistemas</option>
@@ -67,14 +146,14 @@ function AlunoPage(){
                     </div>
 
                     <div>
-                        <button type="button" class="text-blue border border-2 border-blue hover:bg-blue  hover:text-white focus:ring-4 focus:ring-blue-300 font-semibold rounded-lg text-lg px-12 py-2.5 mt-2">
+                        <button type="submit" className="text-blue border border-2 border-blue hover:bg-blue  hover:text-white focus:ring-4 focus:ring-blue-300 font-semibold rounded-lg text-lg px-12 py-2.5 mt-2">
                             Cadastrar
                         </button>
                     </div>
                 </form>
             );
         }else {
-            return (<Table />);
+            return (<Table persons={alunos} />);
         }
     };
 

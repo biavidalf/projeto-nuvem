@@ -2,8 +2,8 @@ import React from "react";
 import { BiEdit } from "react-icons/bi";
 import { CgRemoveR } from "react-icons/cg";
 
-export default function Table() {
-    return (
+export default function Table({ persons }) {
+    return (        
         <div className="flex flex-col items-center justify-start w-full">
             <div className="overflow-x-auto w-full">
                 <div className="flex justify-between py-3 px-2">
@@ -99,60 +99,38 @@ export default function Table() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 text-blue">
-                                <tr>
-                                    <td className="px-6 py-4 text-sm font-medium text-blue whitespace-nowrap">
-                                        1
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-blue whitespace-nowrap">
-                                        Jone Doe
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-blue whitespace-nowrap">
-                                        jonne62@gmail.com
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-green-500 hover:text-green-700 text-2xl"
-                                            href="#"
-                                        >
-                                            <BiEdit />
-                                        </a>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-red-500 hover:text-red-700 text-xl"
-                                            href="#"
-                                        >
-                                            <CgRemoveR />
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="px-6 py-4 text-sm font-medium text-blue whitespace-nowrap">
-                                        1
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-blue whitespace-nowrap">
-                                        Jone Doe
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-blue whitespace-nowrap">
-                                        jonne62@gmail.com
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-green-500 hover:text-green-700 text-2xl"
-                                            href="#"
-                                        >
-                                            <BiEdit />
-                                        </a>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-red-500 hover:text-red-700 text-xl"
-                                            href="#"
-                                        >
-                                            <CgRemoveR />
-                                        </a>
-                                    </td>
-                                </tr>
+                                {persons.map((person, index) => {
+                                    console.log(person);
+                                    return(
+                                        <tr>
+                                            <td className="px-6 py-4 text-sm font-medium text-blue whitespace-nowrap">
+                                                {person.matricula}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-blue whitespace-nowrap">
+                                                {person.nome}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm text-blue whitespace-nowrap">
+                                                {person.email}
+                                            </td>
+                                            <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                                                <a
+                                                    className="text-green-500 hover:text-green-700 text-2xl"
+                                                    href="#"
+                                                >
+                                                    <BiEdit />
+                                                </a>
+                                            </td>
+                                            <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                                                <a
+                                                    className="text-red-500 hover:text-red-700 text-xl"
+                                                    href="#"
+                                                >
+                                                    <CgRemoveR />
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
                             </tbody>
                         </table>
                     </div>
@@ -160,4 +138,5 @@ export default function Table() {
             </div>
         </div>
     );
+    
 }
