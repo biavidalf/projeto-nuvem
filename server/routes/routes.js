@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Aluno = require('../models/Aluno');
+const Professor = require('../models/Professor');
 
 router.route('/aluno')
     .get(async (req, res) => {
@@ -85,6 +86,13 @@ router.route('/professor')
     if (!professor) {
       res.status(422).json({ error: 'Dados obrigatório' });
       return;
+    }
+
+    const professorNoBanco = await Professor.findOne({matricula: req.body.matricula});
+    
+    if(professorNoBanco){
+      res.status(422).json({error: 'Matrícula inserida já encontrada no banco'});
+      return
     }
 
     try {

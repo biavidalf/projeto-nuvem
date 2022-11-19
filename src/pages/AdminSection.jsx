@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import RegisterForm from '../components/RegisterForm';
 import Table from '../components/Table';
 
-export default function AdminSection({ type, url }) {
+export default function AdminSection({ type }) {
   // Type: aluno, professor, turma, curso
 
   const [isCadastrarClicked, setIsCadastrarClicked] = useState(false);
@@ -19,7 +19,7 @@ export default function AdminSection({ type, url }) {
 
   const getData = () => {
     axios
-      .get(url)
+      .get('http://localhost:3000/' + type)
       .then((response) => {
         const allData = response.data;
         setData(allData);
@@ -32,12 +32,12 @@ export default function AdminSection({ type, url }) {
       return (
         <RegisterForm
           endpoint={type}
-          buttonClick={setIsCadastrarClicked}
-          getData={data}
+          buttonClick={cadastroButtonClicked}
+          getData={getData}
         />
       );
     } else {
-      return <Table persons={data} />;
+      return <Table persons={data} type={type} getData={getData}/>;
     }
   };
 
@@ -55,6 +55,15 @@ export default function AdminSection({ type, url }) {
       <Header
         title="Professores"
         button="Cadastrar Professor"
+        click={cadastroButtonClicked}
+        render={renderPage}
+      />
+    );
+  } else if (type == 'turma') {
+    return (
+      <Header
+        title="Turmas"
+        button="Cadastrar Turma"
         click={cadastroButtonClicked}
         render={renderPage}
       />

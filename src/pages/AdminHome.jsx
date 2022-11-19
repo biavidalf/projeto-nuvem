@@ -73,7 +73,6 @@ export default function Admin() {
           {pageName && (
             <AdminSection
               type={pageName}
-              url={`http://localhost:3000/${pageName}`}
             />
           )}
         </div>
