@@ -31,7 +31,7 @@ export default function AdminSection({type, url}){
                 <RegisterForm endpoint={type} buttonClick={setIsCadastrarClicked} getData={data} />
             )
         }else {
-            return (<Table persons={data} />);
+            return (<Table persons={data} pageName={type} />);
         }
     }
 
