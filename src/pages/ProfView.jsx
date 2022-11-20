@@ -2,7 +2,10 @@ import NavBar from '../components/Navbar';
 import Title from '../components/Title';
 import {DoughnutChart} from '../components/DoughnutChartDemo';
 import Navigate from '../components/Navigate';
- 
+import { useState, useEffect } from 'react';
+import { usuarioLogadoMatricula } from '../../server/staticData/loginData';
+import axios from 'axios';
+
  
 function ProvaAberta(){
    return (
@@ -26,18 +29,52 @@ function ProvaAberta(){
    )
 }
  
-function Turma(){
+function Turma({ disciplina, codigo, qtdAlunos }){
   return (
     <div className="w-60 bg-white w-80 px-8 py-6 text-blue flex flex-col gap-1 items-center rounded drop-shadow-md ">
-    <div className="font-bold text-lg text-center">Interação Humano Computador</div>
-      <div className="text-md font-medium">T163-88</div>
-      <div className="text-md font-medium">30 Alunos</div>
+    <div className="font-bold text-lg text-center">{disciplina}</div>
+      <div className="text-md font-medium">{codigo}</div>
+      <div className="text-md font-medium">{qtdAlunos} Alunos</div>
       <Navigate text="Ir" path="/turma" type="2" />
     </div>
   )
 }
  
 export default function ProfView() {
+  //const [ professorLogado, setProfessorLogado ] = useState('');
+  const [ turmas, setTurmas ] = useState('');
+  const [ qtdAlunos, setQtdAlunos ] = useState('');
+
+  useEffect(() => {
+    //getUser();
+    getTurmas();
+  }, [])
+
+  /* const getUser = () => {
+    axios.get(`http://localhost:3000/professor/${usuarioLogadoMatricula}`)
+      .then((response) => {
+          const prof = response.data;
+          setProfessorLogado(prof);
+      })
+      .catch(error => console.error(`Error: ${error}`));
+  } */
+
+  const getTurmas = () => {
+    axios.get(`http://localhost:3000/turma?professor=${usuarioLogadoMatricula}`)
+    .then((response) => {
+        const turmas = response.data;
+        setTurmas(turmas);
+        turmas.map((turma) => {
+          axios.get(`http://localhost:3000/aluno?turma=${turma.codigo}&count=true`)
+            .then((response) => {
+              setQtdAlunos(qtdAlunos => [...qtdAlunos, response.data])
+            })
+            .catch(error => console.error(`Error: ${error}`))
+        })
+    })
+    .catch(error => console.error(`Error: ${error}`));
+  }
+
   return (
     <div className="w-full bg-blue min-h-100vh pb-14">
       <nav>
@@ -56,10 +93,10 @@ export default function ProfView() {
         <div className="w-full">
           <Title text="Minhas Turmas" color="white" />
           <div className="w-full flex justify-between">
-            <Turma />
-            <Turma />
-            <Turma />
-            <Turma />
+            {turmas &&
+            turmas.map((turma, index) => {
+              return (<Turma key={index} disciplina={turma.disciplina.nome} codigo={turma.codigo} qtdAlunos={qtdAlunos[index]}/>)
+            })}
           </div>
         </div>
       </main>

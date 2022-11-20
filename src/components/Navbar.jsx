@@ -11,7 +11,7 @@ export default function Navbar(){
   }, []);
 
   const getData = () => {
-      axios.get(`http://localhost:3000/aluno/${usuarioLogadoMatricula}`)
+      axios.get(`http://localhost:3000/${window.location.pathname}/${usuarioLogadoMatricula}`)
       .then((response) => {
           const aluno = response.data;
           setUserLogado(aluno);

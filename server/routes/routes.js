@@ -14,7 +14,17 @@ router.route('/aluno')
         if(req.query.semestre){
           query.semestre = req.query.semestre;
         }
-        const alunos = await Aluno.find(query);
+        if(req.query.turma){
+          query.turmas = req.query.turma;
+        }
+
+        let alunos;
+        if(req.query.count == 'true'){
+          alunos = await Aluno.count(query);
+        }else{
+          alunos = await Aluno.find(query);
+        }
+        
         
         res.status(200).json(alunos);
       } catch (error) {
@@ -189,6 +199,10 @@ router.route('/turma')
             $or: codigos
           }
           console.log(filter);
+        }
+
+        if(req.query.professor){
+          filter["professor.id"] = req.query.professor;
         }
 
         const turmas = await Turma.find(filter);
