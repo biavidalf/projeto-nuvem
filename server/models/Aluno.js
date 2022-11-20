@@ -6,7 +6,7 @@ const Aluno = mongoose.model('Aluno', {
     email: String,
     telefone: String,
     senha: String,
-    curso: String,
+    curso: {id: String, nome: String},
     semestre: Number,
     turmas: [String]
 })
