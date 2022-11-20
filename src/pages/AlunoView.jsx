@@ -3,7 +3,9 @@ import Title from '../components/Title';
 import Prova from '../components/Prova';
 import Nota from '../components/Nota';
 import ShortcutButton from '../components/ShortcutButton';
-import {DoughnutChart} from '../components/DoughnutChartDemo';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { usuarioLogadoMatricula } from '../../server/staticData/loginData';
  
 function GradeTile({ text, withBg }) {
   return (
@@ -14,6 +16,32 @@ function GradeTile({ text, withBg }) {
 }
  
 export default function AlunoView() {
+  const [userLogado, setUserLogado] = useState('');
+  const [turmasUser, setTurmasUser ] = useState('');
+  
+  useEffect(() => {
+    getUser();
+    getTurmas();
+  }, [])
+
+  const getUser = () => {
+    axios.get(`http://localhost:3000/aluno/${usuarioLogadoMatricula}`)
+      .then((response) => {
+          const aluno = response.data;
+          setUserLogado(aluno);
+      })
+      .catch(error => console.error(`Error: ${error}`));
+  }
+
+  const getTurmas = () => {
+    axios.get(`http://localhost:3000/turma`, {codigos: userLogado.turmas})
+    .then((response) => {
+        const turmas = response.data;
+        setTurmasUser(turmas);
+    })
+    .catch(error => console.error(`Error: ${error}`));
+  }
+
   return (
     <div className="w-full bg-blue min-h-100vh pb-14">
       <nav>
@@ -68,6 +96,22 @@ export default function AlunoView() {
  
         </div>
  
+        <div className="w-full">
+          <Title text="Minhas Turmas" color="white" />
+          <div className="w-full flex flex-wrap justify-between gap-y-6">
+            {turmasUser && 
+              Object.keys(turmasUser).map((turma, index) => {
+                return(
+                    <Prova text={turmasUser[turma].codigo} discipline={turmasUser[turma].disciplina.nome} date="" buttonTitle="Ir" />
+                )
+              })
+            }
+            {/* <Prova text="Avaliacao 2" discipline="IHC" date="29/10" />
+            <Prova text="Trabalho 1" discipline="RMS" date="05/10" />
+            <Prova text="Atividade 2" discipline="ADS" date="10/10" /> */}
+          </div>
+        </div>
+
         <div className="w-full">
           <Title text="Atividades Pendentes" color="white" />
           <div className="w-full flex flex-wrap justify-between gap-y-6">

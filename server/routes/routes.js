@@ -181,7 +181,17 @@ router.route('/professor/:matricula')
 router.route('/turma')
     .get(async (req, res) => {
     try {
-        const turmas = await Turma.find();
+        let filter = {};
+
+        if(req.body.codigos){
+          let codigos = req.body.codigos.map((codigo) => {return {codigo}});
+          filter = {
+            $or: codigos
+          }
+          console.log(filter);
+        }
+
+        const turmas = await Turma.find(filter);
         res.status(200).json(turmas);
       } catch (error) {
         res.status(500).json({error});
