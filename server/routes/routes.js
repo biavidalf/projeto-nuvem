@@ -251,6 +251,36 @@ router.route('/turma/:codigo')
         res.status(500).json({error});
     }
   })
+  .put(async (req, res) => {
+    let codigo = req.params.codigo;
+    
+    try {
+        const turma = await Turma.findOne({codigo});
+
+        if(!turma){
+            res.status(422).json({message: 'Turma nao encontrada'});
+            return
+        }
+
+        let fields = {};
+
+        for(let key in req.body){
+          if(key == 'atividade'){
+            fields['$push'] = {atividades: req.body[key]}
+            console.log('fields: ' + fields);
+          }else{
+            fields[key] = req.body[key];
+          }
+        }
+        console.log(fields);
+
+        let turmaUpdated = await Turma.findOneAndUpdate({codigo}, fields, {new: true});
+
+        res.status(200).json({turmaUpdated});
+      } catch (error) {
+        res.status(500).json({error});
+    }
+  })
   .delete(async (req, res) => {
     // Deletar um artigo baseado no id
     let codigo = req.params.codigo;
