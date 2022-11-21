@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     element: <ProfView />,
   },
   {
-    path: "/turma",
+    path: "/turma/:codigo",
     element: <Turma />,
   },
   {

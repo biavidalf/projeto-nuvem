@@ -1,7 +1,7 @@
 import NavBar from '../components/Navbar';
 import Navigate from '../components/Navigate';
 import Navigation from '../components/Navigation';
-import Input from '../components/Input';
+import RegisterForm from '../components/RegisterForm';
  
 function AtividadeContainer({ open = true }){
   return (
@@ -35,32 +35,18 @@ export default function Atividade() {
         </div>
 
         <div className='w-full flex flex-col items-center justify-start text-white text-lg'>
-
-          <div className="w-2/3 p-4">
-            <form className="w-full bg-white flex flex-col items-center justify-start rounded py-6 m-auto gap-y-2">
-              <h2 className="text-blue bold text-2xl font-semibold">Nova Atividade</h2>  
-              
-              <div className="w-full flex items-start justify-between flex-wrap">
-                <div className="w-1/2">
-                  <Input label="Nome"/>
-                  <Input label="Prazo"/>
-                </div>
-
-                <div className="w-1/2">
-                  <Input label="Etapa (AV1/2/3)"/>
-                  <Input label="Nota Máxima"/>
-                </div>
-
-                <div className="w-full">
-                  <Input label="Descricao" type="textarea"/>
-                </div>
-              </div>
-              
-              <Navigate text="Criar" path="/aluno" type="1" />
-            </form>  
-          </div>
+          
         </div>
       </main>
     </div>
   )
+}
+
+function Input({width = 'w-[49%]', label, onChangeFunction, valueFunction, type}){
+  return (
+      <div className={`flex flex-col items-center justify-between ${width}`}>
+          <label className="text-slate-700 text-left w-full">{label}</label>
+          <input type={type} onChange={onChangeFunction} value={valueFunction} className="px-4 py-2 border border-1 border-slate-300 w-full focus:outline-blue" required />
+      </div>
+  );
 }

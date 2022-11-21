@@ -35,7 +35,7 @@ function Turma({ disciplina, codigo, qtdAlunos }){
     <div className="font-bold text-lg text-center">{disciplina}</div>
       <div className="text-md font-medium">{codigo}</div>
       <div className="text-md font-medium">{qtdAlunos} Alunos</div>
-      <Navigate text="Ir" path="/turma" type="2" />
+      <Navigate text="Ir" path={`/turma/${codigo}`} type="2" />
     </div>
   )
 }
@@ -82,6 +82,8 @@ export default function ProfView() {
       </nav>
  
       <main className="flex flex-col items-start justify-start gap-8 min-h-screen max-w-screen-lx mx-auto px-8">
+          
+        {/* Provas abertas */}
         <div className="w-full">
           <Title text="Provas Abertas" color="white" />
           <div className="w-full flex justify-around">
@@ -90,9 +92,10 @@ export default function ProfView() {
           </div>
         </div>
  
+        {/* Minhas Turmas */}
         <div className="w-full">
           <Title text="Minhas Turmas" color="white" />
-          <div className="w-full flex justify-between">
+          <div className="w-full flex gap-6">
             {turmas &&
             turmas.map((turma, index) => {
               return (<Turma key={index} disciplina={turma.disciplina.nome} codigo={turma.codigo} qtdAlunos={qtdAlunos[index]}/>)

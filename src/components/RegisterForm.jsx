@@ -6,6 +6,8 @@ import { disciplinas } from '../../server/staticData/disciplinas';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { Turma } from '../../server/models/Turma';
+
 const showToast = (type, message) => {
     const config = {
         position: "top-center",
@@ -20,7 +22,7 @@ const showToast = (type, message) => {
     type == 'sucesso' ? toast.success(message, config) : toast.error(message, config);
 }
 
-export default function RegisterForm({endpoint, buttonClick, getData}){
+export default function RegisterForm({endpoint, buttonClick, getData, codigoTurma}){
     const url = 'http://localhost:3000/' + endpoint;
 
     const [professores, setProfessores] = useState([]);
@@ -273,7 +275,8 @@ export default function RegisterForm({endpoint, buttonClick, getData}){
             const turma = {
                 codigo,
                 disciplina: {id: disciplinaId, nome: disciplinas[disciplinaId].nome},
-                professor: {id: professor, nome: professorAtual}
+                professor: {id: professor, nome: professorAtual},
+                atividades: []
             }
             
             axios.post(url, turma)
@@ -369,6 +372,106 @@ export default function RegisterForm({endpoint, buttonClick, getData}){
                             })}
                         </select>
                     </div>
+                </div>
+
+                <div>
+                    <button type="submit" className="text-blue border border-2 border-blue hover:bg-blue  hover:text-white focus:ring-4 focus:ring-blue-300 font-semibold rounded-lg text-lg px-12 py-2.5 mt-2">
+                        Cadastrar
+                    </button>
+                </div>
+            </form>
+
+            <ToastContainer />
+            </>
+        );
+    }else if(endpoint == 'atividade'){
+        const [titulo, setTitulo] = useState('');
+        const [descricao, setDescricao] = useState('');
+        const [notaMax, setNotaMax] = useState('');
+        const [prazo, setPrazo] = useState('');
+        const [etapa, setEtapa] = useState('');
+        
+        const onSubmit = (e) => {
+            e.preventDefault();
+            let instancias = [];
+            axios.get('http://localhost:3000/aluno?turma='+ codigoTurma)
+                .then(response => {
+                    for(let aluno in response.data){
+                        instancias.push({
+                            alunoId: response.data[aluno].matricula, 
+                            nota: null, 
+                            isEntregue: false
+                        })
+                    }
+                }).catch((error) => {
+                    console.log(error);
+            });
+
+            let atividade = {
+                titulo,
+                descricao,
+                instancias
+            }
+
+            axios.get('http://localhost:3000/turma/' + codigoTurma)
+                .then(response => {
+                    let turmaAtual = response.data;
+                    Turma.updateOne(
+                        { _id: turmaAtual._id }, 
+                        { $push: { atividades: atividade } }
+                    );
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
+        return(
+            <>
+            <form onSubmit={onSubmit} className="w-3/4 bg-white rounded py-6 px-12 mt-3 flex flex-col items-center m-auto gap-y-2">
+                <h2 className="text-blue font-semibold text-xl">Adicionar Atividade</h2>
+
+                {/* TITULO */}
+                <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center justify-between w-32 flex-col">
+                        <label className="text-slate-700 text-left w-full">Etapa</label>
+                        <select  onChange={(e) => {setEtapa(e.target.value);}} value={etapa} className="px-4 py-2 border border-1 border-slate-300 w-full" required>
+                            <option value="av1">AV1</option>
+                            <option value="av2">AV2</option>
+                            <option value="av3">AV3</option>
+                        </select>
+                    </div>
+                    
+                    <Input width="w-96" type="text" label="Titulo" 
+                    onChangeFunction={(e) => {
+                        setTitulo(e.target.value);
+                    }} 
+                    valueFunction={titulo} />
+                </div>
+
+                {/* DESCRICAO */}
+                <div className="flex items-center justify-between w-full">
+                    <div className="flex flex-col items-center justify-between w-full">
+                        <label className="text-slate-700 text-left w-full">Descricao</label>
+                        <textarea className="px-4 py-2 border border-1 border-slate-300 w-full focus:outline-blue" value={descricao} onChange={(e) => {setDescricao(e.target.value)}} cols="30" rows="10" required></textarea>
+                    </div>
+                </div>
+
+                {/* NOTA MAXIMA E ETAPA */}
+                <div className="flex items-center justify-between w-full">
+                    <Input type="Number" label="Nota Máxima" 
+                        onChangeFunction={(e) => {
+                            setNotaMax(e.target.value);
+                        }} 
+                        valueFunction={notaMax} 
+                    />
+
+                    <Input type="date" label="Prazo de Entrega" 
+                        onChangeFunction={(e) => {
+                            setPrazo(e.target.value);
+                        }} 
+                        valueFunction={prazo} 
+                    />
                 </div>
 
                 <div>
