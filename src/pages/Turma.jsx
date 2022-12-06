@@ -8,11 +8,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import RegisterForm from '../components/RegisterForm';
  
-function AtividadeContainer({ open = true }){
+function AtividadeContainer({ open = true, titulo, countEntregues, countPendentes, prazo }){
   return (
     <div className="w-76 bg-white w-80 px-8 py-6 text-blue flex flex-col gap-1 items-center rounded drop-shadow-md justify-center">        
         <div className="w-full flex justify-between items-center mb-2">
-          <div className="text-xl font-semibold">Atividade 1</div>
+          <div className="text-xl font-semibold">{ titulo }</div>
           <div className={`font-medium border border-1  px-6 py-1 rounded ${open ? "border-green-600 text-green-600" : "border-red-600 text-red-600"}`}>{`${open ? "ABERTO" : "FECHADO"}`}</div>
         </div>
        
@@ -20,7 +20,7 @@ function AtividadeContainer({ open = true }){
        
       <div className="w-full flex justify-between items-center ">
            <Navigate text="Ver entregas" path="/login" type="2" weight='font-normal' />
-          <div className="text-md font-medium mt-2">Prazo: 21/10</div>
+          <div className="text-md font-medium mt-2">Prazo: {prazo}</div>
         </div>
      
     </div>
@@ -48,17 +48,22 @@ export default function Turma() {
     if(isButtonClicked){
       return (
         <div className="w-4/5 m-auto mt-10">
-          <RegisterForm endpoint="atividade" codigoTurma={turma.codigo} />
+          <RegisterForm endpoint="atividade" codigoTurma={turma.codigo} buttonClick={() => {setIsButtonClicked(!isButtonClicked)}} getData={getTurmas} />
         </div>
         )
     }else{
       return (
         <>
           <Title text="Atividades" color="white"/>
-          <div className='w-full flex items-center justify-between'>
-            <AtividadeContainer />
-            <AtividadeContainer />
-            <AtividadeContainer open={false} />
+          <div className='w-full flex items-center justify-between flex-wrap gap-y-6'>
+            {turma.atividades.map((atividade, index) => {
+              const prazo = new Date(atividade.prazo);
+              let today = new Date();
+              today.setHours(0, 0, 0, 0);
+              const isOpen = today < prazo; 
+              console.log(today, prazo)
+              return(<AtividadeContainer key={index} titulo={atividade.titulo} prazo={`${prazo.getDate()}/${(prazo.getMonth()+1).toString().padStart(2, '0')}`} open={isOpen} />)
+            })}
           </div>
         </>
       )

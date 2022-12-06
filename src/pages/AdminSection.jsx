@@ -17,14 +17,16 @@ export default function AdminSection({ type }) {
     getData();
   }, [type]);
 
-  const getData = () => {
-    axios
+  const getData = async () => {
+    await axios
       .get('http://localhost:3000/' + type)
       .then((response) => {
-        const allData = response.data;
-        setData(allData);
+        setData(response.data);
+        console.log('response.data: ', response.data);
       })
       .catch((error) => console.error(`Error: ${error}`));
+      
+    console.log('data: ', data);
   };
 
   const renderPage = () => {
