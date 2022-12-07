@@ -150,7 +150,7 @@ export default function Table({ persons, type, getData }) {
                                                             className="text-red-500 hover:text-red-700 text-xl float-left"
                                                             onClick={() => {
                                                                 axios
-                                                                .delete(`http://https://backend-server-nuvem.vercel.app/${type}/${person.matricula}`)
+                                                                .delete(`https://backend-server-nuvem.vercel.app/${type}/${person.matricula}`)
                                                                 .then((response) => {
                                                                   getData();
                                                                   showToast();
@@ -312,7 +312,7 @@ export default function Table({ persons, type, getData }) {
                                                             className="text-red-500 hover:text-red-700 text-xl float-left"
                                                             onClick={() => {
                                                                 axios
-                                                                .delete(`http://https://backend-server-nuvem.vercel.app/${type}/${person.codigo}`)
+                                                                .delete(`https://backend-server-nuvem.vercel.app/${type}/${person.codigo}`)
                                                                 .then((response) => {
                                                                   getData();
                                                                   showToast();

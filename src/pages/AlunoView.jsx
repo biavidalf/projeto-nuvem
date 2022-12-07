@@ -26,7 +26,7 @@ export default function AlunoView() {
   }, [])
 
   const getUser = () => {
-    axios.get(`http://https://backend-server-nuvem.vercel.app/aluno/${usuarioLogadoMatricula}`)
+    axios.get(`https://backend-server-nuvem.vercel.app/aluno/${usuarioLogadoMatricula}`)
       .then((response) => {
           const aluno = response.data;
           setUserLogado(aluno);
@@ -35,7 +35,7 @@ export default function AlunoView() {
   }
 
   const getTurmas = () => {
-    axios.get(`http://https://backend-server-nuvem.vercel.app/turma`, {codigos: userLogado.turmas})
+    axios.get(`https://backend-server-nuvem.vercel.app/turma`, {codigos: userLogado.turmas})
     .then((response) => {
         const turmas = response.data;
         setTurmasUser(turmas);
