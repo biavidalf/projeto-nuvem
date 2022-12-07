@@ -22,7 +22,7 @@ const showToast = (type, message) => {
 }
 
 export default function RegisterForm({endpoint, buttonClick, getData, codigoTurma}){
-    const url = 'http://localhost:3000/' + endpoint;
+    const url = 'http://https://backend-server-nuvem.vercel.app/' + endpoint;
 
     const [professores, setProfessores] = useState([]);
 
@@ -32,7 +32,7 @@ export default function RegisterForm({endpoint, buttonClick, getData, codigoTurm
     
     const getProfessores = () => {
         axios
-          .get('http://localhost:3000/professor')
+          .get('http://https://backend-server-nuvem.vercel.app/professor')
           .then((response) => {
             setProfessores(response.data);
           })
@@ -294,7 +294,7 @@ export default function RegisterForm({endpoint, buttonClick, getData, codigoTurm
                         // adicionar requisição no servidor para passar curso, semestre, turma e professorId
                         // como parametro, para adicionar o codigo na turma na turma[] dos alunos
                         let alunosPorCursoSemestre = [];
-                        axios.get(`http://localhost:3000/aluno?semestre=${semestre}&curso=${curso}`)
+                        axios.get(`http://https://backend-server-nuvem.vercel.app/aluno?semestre=${semestre}&curso=${curso}`)
                             .then(response => {
                                 alunosPorCursoSemestre = response.data;
                                 console.log('response.data: '+ response.data);
@@ -304,7 +304,7 @@ export default function RegisterForm({endpoint, buttonClick, getData, codigoTurm
                                         let turmasAluno = alunosPorCursoSemestre[aluno].turmas
                                         turmasAluno.push(codigo);
                                         //chamar rota patch passando turma nova )_turmasAluno
-                                        axios.put(`http://localhost:3000/aluno/${alunosPorCursoSemestre[aluno].matricula}`, {turmas: turmasAluno})
+                                        axios.put(`http://https://backend-server-nuvem.vercel.app/aluno/${alunosPorCursoSemestre[aluno].matricula}`, {turmas: turmasAluno})
                                             .catch((error) => {
                                                 console.log(error);
                                             });
@@ -394,7 +394,7 @@ export default function RegisterForm({endpoint, buttonClick, getData, codigoTurm
             const onSubmit = async (e) => {
                 e.preventDefault();
                 let instancias = [];
-                await axios.get('http://localhost:3000/aluno?turma='+ codigoTurma)
+                await axios.get('http://https://backend-server-nuvem.vercel.app/aluno?turma='+ codigoTurma)
                     .then(response => {
                         for(let aluno in response.data){
                             instancias.push({
@@ -418,7 +418,7 @@ export default function RegisterForm({endpoint, buttonClick, getData, codigoTurm
                     instancias
                 }
     
-                axios.put('http://localhost:3000/turma/' + codigoTurma, {atividade})
+                axios.put('http://https://backend-server-nuvem.vercel.app/turma/' + codigoTurma, {atividade})
                     .then(response => {
                         console.log(response.data);
                     })

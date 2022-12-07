@@ -36,7 +36,7 @@ export default function Turma() {
   }, [])
 
   const getTurmas = () => {
-    axios.get(`http://localhost:3000/${window.location.pathname}`)
+    axios.get(`http://https://backend-server-nuvem.vercel.app/${window.location.pathname}`)
     .then((response) => {
         const turma = response.data;
         setTurma(turma);

@@ -11,7 +11,7 @@ export default function Navbar(){
   }, []);
 
   const getData = () => {
-      axios.get(`http://localhost:3000/${window.location.pathname == 'aluno' || window.location.pathname == 'professor' ? window.location.pathname : 'professor'}/${usuarioLogadoMatricula}`)
+      axios.get(`http://https://backend-server-nuvem.vercel.app${window.location.pathname == '/aluno' || window.location.pathname == '/professor' ? window.location.pathname : 'professor'}/${usuarioLogadoMatricula}`)
       .then((response) => {
           const aluno = response.data;
           setUserLogado(aluno);

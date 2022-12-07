@@ -19,7 +19,7 @@ export default function AdminSection({ type }) {
 
   const getData = async () => {
     await axios
-      .get('http://localhost:3000/' + type)
+      .get('http://https://backend-server-nuvem.vercel.app/' + type)
       .then((response) => {
         setData(response.data);
         console.log('response.data: ', response.data);

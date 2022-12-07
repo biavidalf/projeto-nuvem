@@ -7,7 +7,7 @@ import { CgRemoveR } from "react-icons/cg";
 export default function Teste(databaseTable){
     const [alunos, setAlunos] = useState([]);
 
-    const url = 'http://localhost:3000/aluno';
+    const url = 'http://https://backend-server-nuvem.vercel.app/aluno';
     
     useEffect(() => {
         getAlunos();

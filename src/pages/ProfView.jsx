@@ -51,7 +51,7 @@ export default function ProfView() {
   }, [])
 
   /* const getUser = () => {
-    axios.get(`http://localhost:3000/professor/${usuarioLogadoMatricula}`)
+    axios.get(`http://https://backend-server-nuvem.vercel.app/professor/${usuarioLogadoMatricula}`)
       .then((response) => {
           const prof = response.data;
           setProfessorLogado(prof);
@@ -60,12 +60,12 @@ export default function ProfView() {
   } */
 
   const getTurmas = () => {
-    axios.get(`http://localhost:3000/turma?professor=${usuarioLogadoMatricula}`)
+    axios.get(`http://https://backend-server-nuvem.vercel.app/turma?professor=${usuarioLogadoMatricula}`)
     .then((response) => {
         const turmas = response.data;
         setTurmas(turmas);
         turmas.map((turma) => {
-          axios.get(`http://localhost:3000/aluno?turma=${turma.codigo}&count=true`)
+          axios.get(`http://https://backend-server-nuvem.vercel.app/aluno?turma=${turma.codigo}&count=true`)
             .then((response) => {
               setQtdAlunos(qtdAlunos => [...qtdAlunos, response.data])
             })

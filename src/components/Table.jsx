@@ -150,7 +150,7 @@ export default function Table({ persons, type, getData }) {
                                                             className="text-red-500 hover:text-red-700 text-xl float-left"
                                                             onClick={() => {
                                                                 axios
-                                                                .delete(`http://localhost:3000/${type}/${person.matricula}`)
+                                                                .delete(`http://https://backend-server-nuvem.vercel.app/${type}/${person.matricula}`)
                                                                 .then((response) => {
                                                                   getData();
                                                                   showToast();
@@ -186,7 +186,7 @@ export default function Table({ persons, type, getData }) {
                 />
                 </>
             );
-        }else if(type == 'turma'){
+        }else if(type == 'turma' && (!persons || persons[0]?.disciplina)){
             return (   
                 <>
                 <div className="flex flex-col items-center justify-start w-full">
@@ -293,10 +293,10 @@ export default function Table({ persons, type, getData }) {
                                                         {person.codigo}
                                                     </td>
                                                     <td className="px-6 py-4 text-sm text-blue whitespace-nowrap">
-                                                        {/* person.disciplina.nome */}
+                                                        {person.disciplina.nome}
                                                     </td>
                                                     <td className="px-6 py-4 text-sm text-blue whitespace-nowrap">
-                                                        {/* person.professor.nome */}
+                                                        {person.professor.nome}
                                                     </td>
                                                     <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                                         <button 
@@ -312,7 +312,7 @@ export default function Table({ persons, type, getData }) {
                                                             className="text-red-500 hover:text-red-700 text-xl float-left"
                                                             onClick={() => {
                                                                 axios
-                                                                .delete(`http://localhost:3000/${type}/${person.codigo}`)
+                                                                .delete(`http://https://backend-server-nuvem.vercel.app/${type}/${person.codigo}`)
                                                                 .then((response) => {
                                                                   getData();
                                                                   showToast();

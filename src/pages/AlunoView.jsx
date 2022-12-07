@@ -6,6 +6,7 @@ import ShortcutButton from '../components/ShortcutButton';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { usuarioLogadoMatricula } from '../../server/staticData/loginData';
+import AtividadesAluno from '../components/AtividadesAluno';
  
 function GradeTile({ text, withBg }) {
   return (
@@ -25,7 +26,7 @@ export default function AlunoView() {
   }, [])
 
   const getUser = () => {
-    axios.get(`http://localhost:3000/aluno/${usuarioLogadoMatricula}`)
+    axios.get(`http://https://backend-server-nuvem.vercel.app/aluno/${usuarioLogadoMatricula}`)
       .then((response) => {
           const aluno = response.data;
           setUserLogado(aluno);
@@ -34,7 +35,7 @@ export default function AlunoView() {
   }
 
   const getTurmas = () => {
-    axios.get(`http://localhost:3000/turma`, {codigos: userLogado.turmas})
+    axios.get(`http://https://backend-server-nuvem.vercel.app/turma`, {codigos: userLogado.turmas})
     .then((response) => {
         const turmas = response.data;
         setTurmasUser(turmas);
@@ -95,7 +96,18 @@ export default function AlunoView() {
           </div>
  
         </div>
+        {/* ATIVIDADES PENDENTES */}
+        <div className="w-full">
+          <Title text="Atividades Pendentes" color="white" />
+          <div className="w-full flex flex-wrap justify-between gap-y-6">
+            {
+              turmasUser &&
+              <AtividadesAluno turmas={turmasUser}/>
+            }
+          </div>
+        </div>
  
+        {/* TURMAS */}
         <div className="w-full">
           <Title text="Minhas Turmas" color="white" />
           <div className="w-full flex flex-wrap justify-between gap-y-6">
@@ -106,20 +118,9 @@ export default function AlunoView() {
                 )
               })
             }
-            {/* <Prova text="Avaliacao 2" discipline="IHC" date="29/10" />
-            <Prova text="Trabalho 1" discipline="RMS" date="05/10" />
-            <Prova text="Atividade 2" discipline="ADS" date="10/10" /> */}
           </div>
         </div>
 
-        <div className="w-full">
-          <Title text="Atividades Pendentes" color="white" />
-          <div className="w-full flex flex-wrap justify-between gap-y-6">
-            <Prova text="Avaliacao 2" discipline="IHC" date="29/10" />
-            <Prova text="Trabalho 1" discipline="RMS" date="05/10" />
-            <Prova text="Atividade 2" discipline="ADS" date="10/10" />
-          </div>
-        </div>
  
  
         <div className="w-full">
