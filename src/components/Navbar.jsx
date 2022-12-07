@@ -11,7 +11,7 @@ export default function Navbar(){
   }, []);
 
   const getData = () => {
-      axios.get(`https://backend-server-nuvem.vercel.app/${window.location.pathname == '/aluno' || window.location.pathname == '/professor' ? window.location.pathname : 'professor'}/${usuarioLogadoMatricula}`)
+      axios.get(`https://backend-server-nuvem.vercel.app${window.location.pathname == '/aluno' || window.location.pathname == '/professor' ? window.location.pathname : 'professor'}/${usuarioLogadoMatricula}`)
       .then((response) => {
           const aluno = response.data;
           setUserLogado(aluno);
@@ -27,7 +27,10 @@ export default function Navbar(){
         <p>{userLogado.matricula} | {userLogado.nome}</p> 
 
         {/* Adicionar dropdown menu */}
-        <FaUserCircle className="text-4xl" />
+        <a href="https://projeto-nuvem.vercel.app/professor">
+          <FaUserCircle className="text-4xl" />
+        </a>
+        
       </div>
     </div>
   )
