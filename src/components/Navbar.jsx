@@ -2,6 +2,8 @@ import { FaUserCircle } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { usuarioLogadoMatricula } from '../../server/staticData/loginData';
 import axios from 'axios';
+import Navigate from "./Navigate";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar(){
   const [userLogado, setUserLogado] = useState('');
@@ -19,6 +21,11 @@ export default function Navbar(){
       .catch(error => console.error(`Error: ${error}`));
   }
 
+  let navigate = useNavigate();
+  const routeChange = () => {
+    navigate('/professor');
+  }
+
   return (
     <div className="w-full h-24 flex justify-between items-center px-20 text-white mb-[-15px]">
       <h2 className="text-2xl font-semibold">Power Grade</h2>
@@ -27,9 +34,9 @@ export default function Navbar(){
         <p>{userLogado.matricula} | {userLogado.nome}</p> 
 
         {/* Adicionar dropdown menu */}
-        <a href="https://projeto-nuvem.vercel.app/professor">
+        <button onClick={routeChange}>
           <FaUserCircle className="text-4xl" />
-        </a>
+        </button>
         
       </div>
     </div>
